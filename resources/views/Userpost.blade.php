@@ -12,11 +12,11 @@
         
                
                 {{-- @foreach($posts->skip(1) as $post) --}}
-                @empty(!$posts)
+                @if (isset($posts) &&  $posts->count() > 0)
                 @foreach($posts as $post) 
 
             
-                    <div class="{{$loop->odd ? 'All_post' : 'Post_All'}}">
+                    <div class="{{$loop->iteration <= 3 ? 'All_post' : 'Post_All'}}">
                  
                         <h4>Category Name: {{$post->category->name}}</h4>
                         <div><h5>User:    {{$post->user->name}}</h5></div>
@@ -27,7 +27,10 @@
                 
             
                 @endforeach
-                @endempty
+                @else
+                <h2>Record Not Found.</h2>
+                @endif
+                        
             </div>
     </div>
 </div>

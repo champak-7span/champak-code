@@ -18,11 +18,12 @@ use App\Http\Controllers\PostController;
 
 
 Route::get('/', function () {
-
+    
     return view('welcome');
 });
 
 Route::get('/posts', 'PostController@index');
+Route::get('/search', 'PostController@Filterpost');
 Route::get('/author/{author:userName}', 'PostController@Userpost');
 
 
