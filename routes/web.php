@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,9 +23,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/posts', 'PostController@index');
+Route::get('/posts/{slug?}', 'PostController@index');
 Route::get('/search', 'PostController@Filterpost');
-Route::get('/author/{author:userName}', 'PostController@Userpost');
+Route::get('/register','RegisterController@index')->name('register')->middleware('guest');
+Route::get('login','RegisterController@Logincreate')->middleware('guest')->name('login');
+Route::post('login','RegisterController@Loginstore')->middleware('guest');
+Route::get('logout','RegisterController@Logout');
+Route::post('/register', [RegisterController::class, 'customRegistration'])->name('register.custom')->middleware('guest');; 
+// Route::get('/author/{userName?}', 'PostController@index')->name('author');
+// Route::get('/author/{author:userName}', 'PostController@Userpost');
 
 
 // Route::get('/posts/{post}',function($slug){

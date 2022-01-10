@@ -15,9 +15,7 @@ class PostController extends Controller
     //post Filter and Display all post 
 
     public function index(Request $request){
-
         $categories = Category::all();
-        
         //$posts = Post::latest()->get(); //Lazy Loading take a time and memory allocate
 
         //$posts = Post::latest()->with(['category','user'])->get(); // eager loading  time saving and less than memory allocate insted of  lazy loading
@@ -30,15 +28,15 @@ class PostController extends Controller
         //     ->get();
         // }    
             
-         $posts = Post::latest()->filter(['search'=>$request->search,'category'=>$request->category])->with(['category','user']);  
+         $posts = Post::latest()->filter(['search'=>$request->search,'category'=>$request->category,'author'=>$request->author])->with(['category','user']);  
         
         // if($request->search){
         //     $posts->where('title', 'like', '%' . $request->search . '%')
         //     ->orWhere('body', 'like', '%' . $request->search . '%');
         // }    
         
-        $posts = $posts->get();      
-   
+        $posts = $posts->paginate(3)->withQueryString();      
+
         // $posts = DB::table('posts')
         // ->select('posts.*','categories.name as cname')
         // ->leftjoin('categories', 'posts.category_id', '=', 'categories.id')
@@ -67,4 +65,6 @@ class PostController extends Controller
         return view('Userpost',compact('posts'));
 
     }
+
+   
 }

@@ -22,7 +22,7 @@
             }
         </style>
 
-        @yield('style');
+        @yield('style')
         <!-- <script src="/app.js"></script> -->
     </head>
 
@@ -33,6 +33,7 @@
 
  
  @yield('content')
+ @include('message')
  @yield('script')
     <!-- jQuery library -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>

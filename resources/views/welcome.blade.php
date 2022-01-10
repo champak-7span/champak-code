@@ -5,9 +5,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Laravel</title>
+            <!-- Latest compiled and minified CSS -->
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+        
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+            <!-- jQuery library -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
         <link href="" rel="stylesheet">
         <!-- Styles -->
         <style>
@@ -22,7 +33,13 @@
         <!-- <script src="/app.js"></script> -->
     </head>
     <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
+
+<div class="register" >
+<a href="{{ route('register') }}" class=" btn btn-primary  underline">Register</a>
+<a href="login" class=" btn btn-primary  underline">Login</a>
+</div>    
+
+   <!-- <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-90 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
@@ -36,23 +53,28 @@
                     @endauth
                 </div>
             @endif
+            </div> -->
+
+           <div class="rows">
             <div class="col-md-12">
                     <article>
 
-        <h2><a href="/posts/post-first">My First post</a></h2>
+            <h2><a href="/posts/post-first">My First post</a></h2>
 
-        <p>Pellentesque ut semper dui, ut ultrices arcu. Nullam id venenatis purus, et laoreet augue. Cras eu maximus tortor. Curabitur quis neque nec leo eleifend placerat cursus interdum nunc. Pellentesque ac dolor sapien. Nam eu tellus leo. Fusce tincidunt lectus purus, eget condimentum neque egestas non. Proin eu tellus faucibus, commodo ex vel, lobortis diam. Nullam vitae libero pellentesque, dapibus tortor vitae, congue enim. Maecenas eget fringilla elit, ut molestie nulla. Etiam at dictum lorem.</p>
-        </article>
+            <p>Pellentesque ut semper dui, ut ultrices arcu. Nullam id venenatis purus, et laoreet augue. Cras eu maximus tortor. Curabitur quis neque nec leo eleifend placerat cursus interdum nunc. Pellentesque ac dolor sapien. Nam eu tellus leo. Fusce tincidunt lectus purus, eget condimentum neque egestas non. Proin eu tellus faucibus, commodo ex vel, lobortis diam. Nullam vitae libero pellentesque, dapibus tortor vitae, congue enim. Maecenas eget fringilla elit, ut molestie nulla. Etiam at dictum lorem.</p>
+            </article>
+            </div>
+            <div class="col-md-12">
+
+            <article>
+
+            <h2><a href="/posts/post-second">My second post</a></h2>
+
+            <p>Pellentesque ut semper dui, ut ultrices arcu. Nullam id venenatis purus, et laoreet augue. Cras eu maximus tortor. Curabitur quis neque nec leo eleifend placerat cursus interdum nunc. Pellentesque ac dolor sapien. Nam eu tellus leo. Fusce tincidunt lectus purus, eget condimentum neque egestas non. Proin eu tellus faucibus, commodo ex vel, lobortis diam. Nullam vitae libero pellentesque, dapibus tortor vitae, congue enim. Maecenas eget fringilla elit, ut molestie nulla. Etiam at dictum lorem.</p>
+            </article>
+            </div>
         </div>
-        <div class="col-md-12">
-
-        <article>
-
-        <h2><a href="/posts/post-second">My second post</a></h2>
-
-        <p>Pellentesque ut semper dui, ut ultrices arcu. Nullam id venenatis purus, et laoreet augue. Cras eu maximus tortor. Curabitur quis neque nec leo eleifend placerat cursus interdum nunc. Pellentesque ac dolor sapien. Nam eu tellus leo. Fusce tincidunt lectus purus, eget condimentum neque egestas non. Proin eu tellus faucibus, commodo ex vel, lobortis diam. Nullam vitae libero pellentesque, dapibus tortor vitae, congue enim. Maecenas eget fringilla elit, ut molestie nulla. Etiam at dictum lorem.</p>
-        </article>
         </div>
-        </div>
+       
     </body>
 </html>

@@ -29,11 +29,7 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function scopeFilter($query, array $filters){
-     
-
-
-       
+    public function scopeFilter($query, array $filters){   
         
         if($filters['search']){
             $query->where(function($query){
@@ -55,7 +51,16 @@ class Post extends Model
                 $query->where('slug',$name);
             });  
         // });            
-}
+        }
+
+        if($filters['author']){
+                $username = $filters['author'];
+                $query->whereHas('user', function ($query) use($username){
+                    $query->where('userName',$username);
+                }); 
+            
+           
+        }
 
         
         
