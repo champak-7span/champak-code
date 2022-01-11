@@ -29,6 +29,10 @@ Route::get('/register','RegisterController@index')->name('register')->middleware
 Route::get('login','RegisterController@Logincreate')->middleware('guest')->name('login');
 Route::post('login','RegisterController@Loginstore')->middleware('guest');
 Route::get('logout','RegisterController@Logout');
+Route::get('/admin/posts', 'PostController@Addpost')->middleware(['auth','admin']);
+Route::post('/admin/posts/create', 'PostController@Storepost')->name('createpost')->middleware(['auth','admin']);
+
+
 Route::post('/register', [RegisterController::class, 'customRegistration'])->name('register.custom')->middleware('guest');; 
 // Route::get('/author/{userName?}', 'PostController@index')->name('author');
 // Route::get('/author/{author:userName}', 'PostController@Userpost');

@@ -16,6 +16,8 @@ class Post extends Model
         'body',
         'category_id',
         'slug',
+        'user_id',
+        'thumbnail',
     ];
 
     // protected $with = ['category','user'];
@@ -60,9 +62,11 @@ class Post extends Model
                 }); 
             
            
-        }
+            }
+    }
 
-        
-        
+    public function comments(){
+
+        return $this->hasmany(comment::class);
     }
 }

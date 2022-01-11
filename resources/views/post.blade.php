@@ -46,6 +46,7 @@
 
     @foreach($posts as $post)
     <div class="All_post">
+        <img src="/storage/{{$post->thumbnail}}" style="width:150px; height:150px; border-radius:20px;" />
     <h4>Category Name: {{$post->category->name}}</h4>
     <div><a href="/posts/?author={{$post->user->userName}}"><h5>User:   {{$post->user->name}} </h5></a></div>
  

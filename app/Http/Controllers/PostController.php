@@ -8,6 +8,9 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
 use DB;
+use Illuminate\Validation\Rule;
+use Auth;
+use Storage;
 
 
 class PostController extends Controller
@@ -53,18 +56,47 @@ class PostController extends Controller
                 return view('post',compact('posts','categories'));
         }
 
-    public function Userpost(Request $request,$userName){
+        public function Userpost(Request $request,$userName){
 
       
         $posts = Post::latest()->with(['category', 'user'])->whereHas("user",function($q) use ($userName){
             $q->where("userName","=",$userName);
         })->get();
-
-     
-
         return view('Userpost',compact('posts'));
 
-    }
+        }
+
+        public function Addpost(Request $request){
+
+            $categories = Category::all();
+
+            
+        return view('posts.addpost',compact('categories'));
+        }
+        public function Storepost(Request $request){
+            $request->validate([
+                'title' => 'required|min:4|max:255',
+                'slug' => ['required', Rule::unique('posts', 'slug')],
+                'category_id' => ['required',Rule::exists('categories', 'id')],
+                'body' => 'required',
+                'thumbnail' =>'required|image',
+            ]);
+
+           
+            
+            $data = $request->all();
+            $data['user_id'] = Auth::user()->id;
+            // $data['thumbnail'] = $request->file('thumbnail')->store('thumbnails');
+            $data['thumbnail'] = Storage::putFile('thumbnails', $request->file('thumbnail'));
+        
+          
+            Post::create($data);
+
+            return redirect("/posts")->with('success','posts successfully added!');
+
+        }
+
+
 
    
 }
