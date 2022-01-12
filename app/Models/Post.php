@@ -19,54 +19,55 @@ class Post extends Model
         'user_id',
         'thumbnail',
     ];
+ 
 
     // protected $with = ['category','user'];
 
-    public function category(){
 
-        return $this->belongsTo(Category::class);
-    }
-    public function user(){
+    
+        public function category(){
 
-        return $this->belongsTo(User::class);
-    }
-
-    public function scopeFilter($query, array $filters){   
-        
-        if($filters['search']){
-            $query->where(function($query){
-                $query->where('title', 'like', '%' . request('search') . '%')
-                ->orWhere('body', 'like', '%' . request('search') . '%');
-            });
-           
+            return $this->belongsTo(Category::class);
         }
-        
-        if($filters['category']){
-          
-            $name = $filters['category'];
+        public function user(){
 
-        //    $query->when($name, function ($query, $name) {
-        //         return $query->whereHas('category',function ( $));
-        //     });
-            // $query->when($name, function ($query, $name) {
-            $query->whereHas('category', function ($query) use($name){
-                $query->where('slug',$name);
-            });  
-        // });            
+            return $this->belongsTo(User::class);
         }
 
-        if($filters['author']){
-                $username = $filters['author'];
-                $query->whereHas('user', function ($query) use($username){
-                    $query->where('userName',$username);
-                }); 
+        public function scopeFilter($query, array $filters){   
+        
+            if($filters['search']){
+                $query->where(function($query){
+                    $query->where('title', 'like', '%' . request('search') . '%')
+                    ->orWhere('body', 'like', '%' . request('search') . '%');
+                });
             
-           
             }
-    }
+        
+            if($filters['category']){
+            
+                $name = $filters['category'];
 
-    public function comments(){
+            //    $query->when($name, function ($query, $name) {
+            //         return $query->whereHas('category',function ( $));
+            //     });
+                // $query->when($name, function ($query, $name) {
+                $query->whereHas('category', function ($query) use($name){
+                    $query->where('slug',$name);
+                });  
+            // });            
+            }
 
-        return $this->hasmany(comment::class);
-    }
+            if($filters['author']){
+                    $username = $filters['author'];
+                    $query->whereHas('user', function ($query) use($username){
+                        $query->where('userName',$username);
+                    }); 
+                }
+        }
+
+        public function comments(){
+
+            return $this->hasmany(comment::class);
+        }
 }

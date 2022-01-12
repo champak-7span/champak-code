@@ -10,6 +10,7 @@ use App\Models\Category;
 use DB;
 use Illuminate\Validation\Rule;
 use Auth;
+use Gate;
 use Storage;
 
 
@@ -18,7 +19,8 @@ class PostController extends Controller
     //post Filter and Display all post 
 
     public function index(Request $request){
-        $categories = Category::all();
+        
+        $categories = $this->Categories();    
         //$posts = Post::latest()->get(); //Lazy Loading take a time and memory allocate
 
         //$posts = Post::latest()->with(['category','user'])->get(); // eager loading  time saving and less than memory allocate insted of  lazy loading
@@ -46,14 +48,16 @@ class PostController extends Controller
         // ->get();   
        return view('post',compact('posts','categories'));
 
-    }
-
-
+        }
         //Filter Post for another query
         public function Filterpost(Request $request){   
                 $categories = Category::all();
                 $posts =  Post::where('title', 'like', '%' . $request->search . '%')->get();
                 return view('post',compact('posts','categories'));
+        }
+
+        public function Categories(){
+            return Category::all();
         }
 
         public function Userpost(Request $request,$userName){
@@ -67,12 +71,10 @@ class PostController extends Controller
         }
 
         public function Addpost(Request $request){
-
-            $categories = Category::all();
-
-            
+            $categories = $this->Categories();
         return view('posts.addpost',compact('categories'));
         }
+        // Add Post
         public function Storepost(Request $request){
             $request->validate([
                 'title' => 'required|min:4|max:255',
@@ -81,20 +83,53 @@ class PostController extends Controller
                 'body' => 'required',
                 'thumbnail' =>'required|image',
             ]);
-
-           
-            
             $data = $request->all();
             $data['user_id'] = Auth::user()->id;
             // $data['thumbnail'] = $request->file('thumbnail')->store('thumbnails');
             $data['thumbnail'] = Storage::putFile('thumbnails', $request->file('thumbnail'));
-        
-          
             Post::create($data);
-
             return redirect("/posts")->with('success','posts successfully added!');
 
         }
+
+        // Edit Post
+
+        public function Edit(Post $post){
+           
+           
+            return view('posts.editpost',['categories'=>$this->Categories(),'post'=>$post]);
+
+
+        }
+        public function Update(Post $post){
+           
+         
+            $data = request()->validate([
+                'title' => 'required|min:4|max:255',
+                'slug' => ['required', Rule::unique('posts', 'slug')->ignore($post->id)],
+                'category_id' => ['required',Rule::exists('categories', 'id')],
+                'body' => 'required',
+                'excerpt'=>'required|max:255',
+                'thumbnail' =>'image',
+            ]);
+            if(isset($data['thumbnail'])){
+                $data['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
+            }
+        
+            $post->update($data);
+            return back()->with('success','Post updated Successfully!');
+            // return view('posts.editpost',['categories'=>$this->Categories(),'post'=>$post]);
+
+
+        }
+
+        public function Destroy(Post $post){
+            $post->delete();
+            return back()->with('success','Post Deleted Successfully!');
+
+        }
+
+        
 
 
 

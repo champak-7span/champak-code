@@ -10,39 +10,80 @@
     <div class="container">
 
     <div class="logout">
-    @if(Auth::check())
-    <form method="POST">
-    @csrf
-    <A href="logout" class="btn btn-priamry btn-lg">Logout</a>
-
-</form>
-@endif
+      @admin
+      
+      <form method="POST">
+        @csrf
+      <A href="logout" class="btn btn-priamry btn-lg">Logout</a>
+      </form>
+   @endadmin
     </div>
     <form method="GET" action="/posts">
-    <div class="category col-md-6 py-4">
-    @if (isset($categories) && empty(!$categories))
-    
-    
-        <select name="category" class="form-control">
-        <option value=''  selected>All</option>
-        @foreach($categories as $category)
-        
-        <option value="{{$category->slug}}">{{$category->name}}</option>
-        @endforeach
-        </select>
-    
-    
-    @endif
-    
-    </div>
-    
-    <div class="col-md-6 py-4">
+      <div class="category col-md-6 py-4">
+          @if (isset($categories) && empty(!$categories))
       
-        <input type="text" name="search" value="{{ request('search') }}" placeholder="search here.." class="form-control">
+      
+          <select name="category" class="form-control">
+          <option value=''  selected>All</option>
+          @foreach($categories as $category)
+          
+          <option value="{{$category->slug}}">{{$category->name}}</option>
+          @endforeach
+          </select>
+      
+      
+      @endif
+      
+      </div>
+    
+      <div class="col-md-6 py-4">
         
-    </div>  
+          <input type="text" name="search" value="{{ request('search') }}" placeholder="search here.." class="form-control">
+          
+      </div>  
     </form>
-    @if (isset($posts) &&  $posts->count() > 0)
+    <table class="table">
+  <caption>List of posts</caption>
+  <thead>
+    <tr>
+      <th scope="col">Sr no</th>
+      <th scope="col">Category Name</th>
+      <th scope="col">Title</th>
+      <th scope="col">User Name</th>
+      <th scope="col">Body</th>
+      <th scope="col">Thumbnail</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+      
+    </tr>
+  </thead>
+
+  <tbody>
+  @if (isset($posts) &&  $posts->count() > 0)
+  @php $i = 1; @endphp
+  @foreach($posts as $post)
+    <tr>
+      <th scope="row">{{$i++}}</th>
+      <td>{{$post->category->name}}</td>
+      <td>{{$post->title}}</td>
+      <td>{{$post->user->name}}</td>
+      <td>{{$post->body}}</td>
+      <td><img src="/storage/{{$post->thumbnail}}" style="width:150px; height:150px; border-radius:20px;" /></td>
+      <td><a href="admin/posts/{{$post->id}}/edit" class="">Edit</a></td>
+      <td><form method="post" action="admin/posts/{{$post->id}}/delete" > @csrf @method('DELETE')<button class="btn btn-primary">Delete</button></form></td>
+    </tr>
+
+
+    @endforeach
+    @endif
+ 
+  </tbody>
+</table>
+{{$posts->links()}}
+
+
+
+    <!-- @if (isset($posts) &&  $posts->count() > 0)
 
     @foreach($posts as $post)
     <div class="All_post">
@@ -64,6 +105,6 @@
     <h2>Record Not Found.</h2>
     @endif
 </div>
-</div>
+</div> -->
 @endsection
 

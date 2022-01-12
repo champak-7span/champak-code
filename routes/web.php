@@ -30,6 +30,9 @@ Route::get('login','RegisterController@Logincreate')->middleware('guest')->name(
 Route::post('login','RegisterController@Loginstore')->middleware('guest');
 Route::get('logout','RegisterController@Logout');
 Route::get('/admin/posts', 'PostController@Addpost')->middleware(['auth','admin']);
+Route::get('/admin/posts/{post}/edit', 'PostController@Edit')->middleware(['auth','admin']);
+Route::patch('/admin/posts/{post}', 'PostController@Update')->middleware(['auth','admin']);
+Route::delete('/admin/posts/{post}/delete', 'PostController@Destroy')->middleware(['auth','admin']);
 Route::post('/admin/posts/create', 'PostController@Storepost')->name('createpost')->middleware(['auth','admin']);
 
 
