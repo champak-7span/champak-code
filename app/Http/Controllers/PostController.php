@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\PostController;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
@@ -19,8 +18,9 @@ class PostController extends Controller
     //post Filter and Display all post 
 
     public function index(Request $request){
-        
+       
         $categories = $this->Categories();    
+      
         //$posts = Post::latest()->get(); //Lazy Loading take a time and memory allocate
 
         //$posts = Post::latest()->with(['category','user'])->get(); // eager loading  time saving and less than memory allocate insted of  lazy loading
@@ -81,6 +81,7 @@ class PostController extends Controller
                 'slug' => ['required', Rule::unique('posts', 'slug')],
                 'category_id' => ['required',Rule::exists('categories', 'id')],
                 'body' => 'required',
+                'excerpt'=>'required|max:255',
                 'thumbnail' =>'required|image',
             ]);
             $data = $request->all();

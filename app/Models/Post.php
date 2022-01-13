@@ -68,6 +68,6 @@ class Post extends Model
 
         public function comments(){
 
-            return $this->hasmany(comment::class);
+            return $this->hasmany(Comment::class);
         }
 }

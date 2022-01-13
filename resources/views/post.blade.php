@@ -10,13 +10,13 @@
     <div class="container">
 
     <div class="logout">
-      @admin
+      @can('admin')
       
       <form method="POST">
         @csrf
       <A href="logout" class="btn btn-priamry btn-lg">Logout</a>
       </form>
-   @endadmin
+   @endcan
     </div>
     <form method="GET" action="/posts">
       <div class="category col-md-6 py-4">
