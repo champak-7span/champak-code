@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Models\Comment;
 use Auth;
@@ -25,7 +26,10 @@ class PostController extends Controller
        
         $posts = Post::latest()->filter(['search'=>$request->search,'category'=>$request->category,'author'=>$request->author])->with(['category','user','comments'])->get();  
 
-        return response()->json(['data' => $posts],200);
+
+        return $this->Showall($posts);
+        // return response()->json(['data' => $posts],200);
+        
     }
 
     /**
@@ -46,15 +50,49 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+
+    //    $validator = Validator::make($request->all(), [
+    //     'title'=>'required|min:4|max:100'
+    // ]);
+
+    // if ($validator->fails()) {
+    //     // get first error message
+    //     $error = $validator->errors()->first();
+    //     // get all errors 
+    //     $errors = $validator->errors()->all();
+    // }
+
+       $validator = Validator::make($request->all(), [
             'title' => 'required|min:4|max:255',
             'slug' => ['required', Rule::unique('posts', 'slug')],
             'category_id' => ['required',Rule::exists('categories', 'id')],
             'body' => 'required',
-            'thumbnail' =>'required|image',
+            // 'thumbnail' =>'required|mimes:jpeg,bmp,png,gif,svg,pdf|max:2000',
+            'thumbnail' =>'required|mimes:jpeg,bmp,png,gif|max:2000',
             'excerpt'=>'required|max:255',
             'user_id'   =>'required',
         ]);
+
+     
+       
+        if($validator->fails()){
+        
+            // here we return all the errors message
+            // return response()->json(['errors' => $validator->errors()], 422);
+            // $message = ['errors' => $validator->errors()];
+            return $this->Erroresponse($validator->errors(),422);
+
+            
+        }
+
+        // if ($validator->fails()) {
+        //     return response()->json(['erros'=>validator])
+        //     return redirect('post/create')
+        //                 ->withErrors($validator)
+        //                 ->withInput();
+        // }
+
+
         $data = $request->all();
         // $data['user_id'] = Auth::user()->id;
         // $data['thumbnail'] = $request->file('thumbnail')->store('thumbnails');
@@ -117,8 +155,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function Destroy(Post $post){
+        $post->delete();
+        return $this->Successmessage('Post Deleted Successfully!');
+
     }
 }

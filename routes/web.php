@@ -34,8 +34,6 @@ Route::get('/admin/posts/{post}/edit', 'PostController@Edit')->middleware(['auth
 Route::patch('/admin/posts/{post}', 'PostController@Update')->middleware(['auth','admin']);
 Route::delete('/admin/posts/{post}/delete', 'PostController@Destroy')->middleware(['auth','admin']);
 Route::post('/admin/posts/create', 'PostController@Storepost')->name('createpost')->middleware(['auth','admin']);
-
-
 Route::post('/register', [RegisterController::class, 'customRegistration'])->name('register.custom')->middleware('guest');; 
 // Route::get('/author/{userName?}', 'PostController@index')->name('author');
 // Route::get('/author/{author:userName}', 'PostController@Userpost');

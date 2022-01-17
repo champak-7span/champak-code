@@ -24,6 +24,7 @@ class CreatePostsTable extends Migration
             $table->string('thumbnail')->nullable();
             $table->timestamps();
             $table->timestamp('published_at')->nullable();
+            $table->softDeletes();
         });
     }
 
