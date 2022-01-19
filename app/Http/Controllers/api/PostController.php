@@ -24,9 +24,7 @@ class PostController extends Controller
     public function index(Request $request)
     {
        
-        $posts = Post::latest()->filter(['search'=>$request->search,'category'=>$request->category,'author'=>$request->author])->with(['category','user','comments'])->get();  
-
-
+        $posts = Post::latest()->filter(['search'=>$request->search,'category'=>$request->category,'author'=>$request->author])->with(['category','user','comments'])->get();
         return $this->Showall($posts);
         // return response()->json(['data' => $posts],200);
         
@@ -81,7 +79,6 @@ class PostController extends Controller
             // return response()->json(['errors' => $validator->errors()], 422);
             // $message = ['errors' => $validator->errors()];
             return $this->Erroresponse($validator->errors(),422);
-
             
         }
 

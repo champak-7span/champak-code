@@ -18,8 +18,10 @@ protected function Successmessage($message,$code = 200){
 }
 
 protected function Showall(Collection $collection, $code = 200){
-  
-   return $this->Successresponse(['data'=>$collection],$code);
+    
+    // $transformer = $collection->first()->transformer;
+    // $collection=$this->Transformdata($collection,$transformer);
+    return $this->Successresponse(['data'=>$collection],$code);
 
 }
 protected function Showone(Collection $collection, $code = 200){
@@ -29,4 +31,10 @@ protected function Showone(Collection $collection, $code = 200){
  
  }
 
+ // fractal erorr is geting 
+//  protected  function Transformdata($data, $transformer){
+//      $transformermation = fractal($data, new $transformer);
+//      return $transformermation->toArray();
+
+//  }
 }
