@@ -42,6 +42,7 @@ class RegisterapiController extends Controller
    
      }
 
+
      public function Customlogin(Login $request){
         // $validator = Validator::make($request->all(), [
             
@@ -69,7 +70,6 @@ class RegisterapiController extends Controller
         // return $this->Erroresponse('Your Credential does not match',404);
 
         $data = $this->authService->login($request);
-     // dd($data['errors']);
         if (isset($data['errors'])) {
             return $this->error($data['errors'],404);
         } else {

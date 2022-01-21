@@ -26,8 +26,6 @@ class PostController extends Controller
        
         $posts = Post::latest()->filter(['search'=>$request->search,'category'=>$request->category,'author'=>$request->author])->with(['category','user','comments'])->get();
         return $this->Showall($posts);
-        // return response()->json(['data' => $posts],200);
-        
     }
 
     /**

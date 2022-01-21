@@ -20,8 +20,6 @@ class CreateProductsTable extends Migration
             $table->integer('createdby')->nullable();
             $table->integer('updatedby')->nullable();
             $table->integer('deletedby')->nullable();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

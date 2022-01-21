@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\PostController;
 use App\Http\Controllers\api\CategoryController;
 use App\Http\Controllers\api\RegisterapiController;
+use App\Http\Controllers\api\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,5 +26,9 @@ Route::get('/posts', 'api\PostController@index');
 Route::post('/posts/create', 'api\PostController@store');
 Route::delete('posts/{post}', 'api\PostController@Destroy');
 Route::resource('category', api\CategoryController::class);
-Route::post('register', 'api\RegisterapiController@customRegistrationapi');
+
+
+// For demo project use (Standrd Code)
 Route::post('login', 'api\RegisterapiController@Customlogin');
+Route::post('register', 'api\RegisterapiController@customRegistrationapi');
+Route::resource('product', api\ProductController::class);

@@ -1,6 +1,8 @@
 <?php
 namespace App\Traits;
 use Illuminate\Support\Collection;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 trait Apiresponse
 {
@@ -38,7 +40,10 @@ protected function error($data, $code = 400)
     // return response()->json(['error'=>$message,'code'=>$code], $code);
     return response()->json($data, $code);
 }
-
+private function collection(ResourceCollection $collection, $code = 200)
+{
+    return $collection;
+}
 
  // fractal erorr is geting 
 //  protected  function Transformdata($data, $transformer){
