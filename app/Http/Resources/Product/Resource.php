@@ -21,7 +21,6 @@ class Resource extends JsonResource
         $data =  $this->fields();
         
         $data['orders'] = new ProductCollection($this->whenLoaded('orders'));
-     
         return $data;
     }
 }

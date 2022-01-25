@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Product\Product;
 use App\Http\Requests\Product\Productupdate;
 use App\Services\Productservice;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Product\Collection as ProductCollection;
 use App\Http\Resources\Product\Resource as ProductResource;
 
@@ -27,12 +28,12 @@ class ProductController extends Controller
         $this->productService = $productService;   
     }
 
-    public function index()
+  
+    public function index(Request $request)
     {
-
-        // Collection Type Error geting in this function
-     $products = $this->productService->collection();
-     return new ProductCollection($products); 
+      
+        $products = $this->productService->collection($request->all());
+        return new ProductCollection($products);
     }
 
     public function store(Product $request)
@@ -46,6 +47,7 @@ class ProductController extends Controller
     {
         //relationship is an issue just Product data is get.
         $product = $this->productService->resource($id);
+      
         return new ProductResource($product);
     }
 
@@ -55,8 +57,12 @@ class ProductController extends Controller
         return new ProductResource($product);
     }
 
-    public function destroy($id, Request $request){
+    public function destroy($id, Request $request)
+    {
+
         $product = $this->productService->delete($id);
-        return response()->json($product);
+        return $this->Successmessage($product['success']);
     }
+    
+    
 }

@@ -10,7 +10,7 @@ class Product extends Model
 {
   
     use HasFactory,BaseModel,SoftDeletes;
-
+    
     protected $fillable = [
         'name', 'description','createdby','updatedby','deletedby'
     ];
@@ -24,6 +24,7 @@ class Product extends Model
     protected $hidden = ['created_at', 'updated_at','deleted_at'];
 
     public function orders(){
+      
         return $this->hasMany(Order::class);
     }
     protected $relationship = [

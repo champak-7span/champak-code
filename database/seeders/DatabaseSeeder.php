@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Category;
 use App\Models\User;
 use App\Models\Post;
+use App\Models\Product;
 
 
 class DatabaseSeeder extends Seeder
@@ -26,6 +27,7 @@ class DatabaseSeeder extends Seeder
         $user = User::factory()->create([
             'name'=>'admin'
         ]);
+        $produc = Product::factory()->create();
         // $user = User::create([
 
         //     'name'=>'admin'

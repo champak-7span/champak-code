@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Hash;
 
 class Authenticationservice{
 
-    protected $user;
+    protected $user = null;
 
     public function __construct(User $user)
     {

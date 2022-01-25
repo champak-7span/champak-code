@@ -1,5 +1,6 @@
 <?php
 namespace App\Services;
+
 use App\Models\Product;
 use DB;
 use Illuminate\Support\Facades\Auth;
@@ -7,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 class Productservice
 {
 
-        protected $product;
+        protected $product = null;
 
         public function __construct(Product $product)
         {
@@ -21,18 +22,16 @@ class Productservice
             $product = $this->product->create($inputs);
             return $product;
         }
-        public function collection($inputs = null)
+        public function collection($inputs=null)
         {
-            
-            return $this->product->getQB()->get();
+          
+           return $this->product->getQB()->get();
         }
        
 
         public function resource($id){
         
             $product = $this->product->getQB()->findorfail($id);
-         
-
             if (!empty($product)) {
                 return $product;
             } else {
@@ -55,7 +54,7 @@ class Productservice
                 return $product;
             }
             $product = $product->delete();
-            return ['success' => $product];
+            return ['success' => 'Product deleted'];
         }
 
 

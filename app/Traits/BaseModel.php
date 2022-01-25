@@ -12,7 +12,6 @@ trait BaseModel
     {
         
         return $this->queryable;
-
     }
 
     public function getQueryFields()
@@ -67,19 +66,23 @@ trait BaseModel
 
     public function getQB()
     {
+      
 
         $queryBuilder = QueryBuilder::for(self::class)
+        
                         ->allowedFields($this->getQueryFieldsWithRelationship())
                         ->allowedIncludes($this->getIncludes());
         
         $filters = $this->getQueryFields();
         
         if(isset($this->scopedFilters)){
+         
             foreach($this->scopedFilters as $key=>$value){
                 array_push($filters,AllowedFilter::scope($value));
             }
         }
         if(isset($this->exactFilters)){
+         
             foreach($this->exactFilters as $key=>$value){
                 //unset($filters[array_search($value, $filters)]);
                 array_push($filters,AllowedFilter::exact($value));

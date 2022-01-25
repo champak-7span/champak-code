@@ -15,7 +15,7 @@ class Collection extends ResourceCollection
     public $collects = 'App\Http\Resources\Product\Resource';
     public function toArray($request)
     {
-        
-        return $this->Collection;
+
+        return $this->collection;
     }
 }

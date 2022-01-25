@@ -26,7 +26,7 @@ class PostController extends Controller
         //$posts = Post::latest()->with(['category','user'])->get(); // eager loading  time saving and less than memory allocate insted of  lazy loading
         //$posts = Post::all();  view file in get post, category, and also user
 
-
+        
         // if($request->search){
         //     $posts =  Post::where('title', 'like', '%' . $request->search . '%')
         //     ->orWhere('body', 'like', '%' . $request->search . '%')

@@ -26,7 +26,7 @@ class Productupdate extends FormRequest
         return [
             'name' => 'required|max:255',
             'description' => 'required',
-            'updatedby' => 'required|numeric',Rule::exists('users', 'id'),
+            'updatedby' => ['required',Rule::exists('users', 'id')],
         ];
     }
     public function messages()

@@ -30,7 +30,7 @@ class Product extends FormRequest
         return [
             'name' => 'required|max:255',
             'description' => 'required',
-            'createdby' => 'required|numeric',Rule::exists('users', 'id'),
+            'createdby' => ['required','numeric',Rule::exists('users', 'id')],
         ];
     }
     public function messages()

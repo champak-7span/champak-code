@@ -19,12 +19,11 @@ class CreateOrdersTable extends Migration
             $table->string('order_no')->unique();
             $table->integer('subtotal');
             $table->integer('total');
+            $table->integer('qty');
             $table->integer('user_id');
             $table->integer('createdby')->nullable();
             $table->integer('updatedby')->nullable();
             $table->integer('deletedby')->nullable();
-            $table->unsignedBigInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
