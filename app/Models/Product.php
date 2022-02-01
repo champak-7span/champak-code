@@ -23,10 +23,11 @@ class Product extends Model
 
     protected $hidden = ['created_at', 'updated_at','deleted_at'];
 
-    public function orders(){
-      
-        return $this->hasMany(Order::class);
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'order_products', 'product_id', 'order_id');
     }
+
     protected $relationship = [
         'orders' => [
             'model' => 'App\\Models\\Order',

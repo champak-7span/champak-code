@@ -22,12 +22,10 @@ class Productservice
             $product = $this->product->create($inputs);
             return $product;
         }
-        public function collection($inputs=null)
+        public function collection($inputs = null)
         {
-          
            return $this->product->getQB()->get();
         }
-       
 
         public function resource($id){
         

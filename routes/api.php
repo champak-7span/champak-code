@@ -32,3 +32,4 @@ Route::resource('category', api\CategoryController::class);
 Route::post('login', 'api\RegisterapiController@Customlogin');
 Route::post('register', 'api\RegisterapiController@customRegistrationapi');
 Route::resource('product', api\ProductController::class);
+Route::resource('orders', api\OrderController::class);

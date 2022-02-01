@@ -2,12 +2,13 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use App\Models\Category;
 use App\Models\User;
 use App\Models\Post;
+use App\Models\Order;
 use App\Models\Product;
-
+use App\Models\Category;
+use App\Models\OrderProduct;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,7 +28,9 @@ class DatabaseSeeder extends Seeder
         $user = User::factory()->create([
             'name'=>'admin'
         ]);
-        $produc = Product::factory()->create();
+        $product = Product::factory()->create();
+        $order = Order::factory(10)->create();
+        $order_product = OrderProduct::factory(10)->create();
         // $user = User::create([
 
         //     'name'=>'admin'

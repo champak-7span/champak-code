@@ -66,8 +66,6 @@ trait BaseModel
 
     public function getQB()
     {
-      
-
         $queryBuilder = QueryBuilder::for(self::class)
         
                         ->allowedFields($this->getQueryFieldsWithRelationship())
