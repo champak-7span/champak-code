@@ -46,6 +46,7 @@ class Kernel extends HttpKernel
             // 'throttle:2,1',  // Per minute only take 2 request
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\PreProcessRequest::class,
         ],
     ];
 
@@ -58,6 +59,7 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
+        'PreProcessRequest' => \App\Http\Middleware\PreProcessRequest::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
@@ -67,6 +69,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => \App\Http\Middleware\Adminonly::class,
-         'signature' => \App\Http\Middleware\Signature::class,
+        'signature' => \App\Http\Middleware\Signature::class,
     ];
 }

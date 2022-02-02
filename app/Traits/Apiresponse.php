@@ -20,15 +20,15 @@ protected function Successmessage($message,$code = 200){
 }
 
 protected function Showall(Collection $collection, $code = 200){
-     
-    // $transformer = $collection->first()->transformer;
-    // $collection=$this->Transformdata($collection,$transformer);
     return $this->Successresponse(['data'=>$collection],$code);
-
 }
 protected function Showone(Collection $collection, $code = 200){
-    return $this->Successresponse(['data'=>$collection],$code);
+    return $this->Successresponse(['data'=>$collection],$code); 
+ }
  
+ private function resource(JsonResource $resource, $code = 200)
+ {
+     return $this->success($resource, $code);
  }
 
 protected function success($data, $code){
@@ -37,13 +37,13 @@ protected function success($data, $code){
 
 protected function error($data, $code = 400)
 {   
-    // return response()->json(['error'=>$message,'code'=>$code], $code);
     return response()->json($data, $code);
 }
 private function collection(ResourceCollection $collection, $code = 200)
 {
     return $collection;
 }
+
 
  // fractal erorr is geting 
 //  protected  function Transformdata($data, $transformer){

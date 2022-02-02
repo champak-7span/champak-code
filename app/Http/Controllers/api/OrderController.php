@@ -6,6 +6,7 @@ use App\Traits\Apiresponse;
 use Illuminate\Http\Request;
 use App\Services\OrderService;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\Order\upsert;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Order\Resource as orderResource;
 use App\Http\Resources\Order\Collection as orderCollection;
@@ -30,9 +31,10 @@ class OrderController extends Controller
         //
     }
 
-    public function store(Request $request)
-    {
-        //
+    public function store(upsert $request)
+    {   
+        $order = $this->orderService->store($request->all());
+        return $this->resource(new orderResource($order));
     }
 
     public function show($id)

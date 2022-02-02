@@ -1,16 +1,18 @@
 <?php
 
-namespace App\Http\Requests\Product;
+namespace App\Http\Requests\Order;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 use App\Traits\Apiresponse;
+use Illuminate\Validation\Rule;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class Productupdate extends FormRequest
+
+class upsert extends FormRequest
 {
-   use Apiresponse;
+    use Apiresponse;
+
     public function authorize()
     {
         return true;
@@ -23,23 +25,19 @@ class Productupdate extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required|max:255',
-            'description' => 'required',
-            'prize' => ['required','numeric'],
-            'stock' => ['required','numeric'],
-        ];
+       $rules = [
+           'name' => ['required','max:254'],
+           'product_id' =>['required'],
+           'quantity' => ['required'],
+           'address' => ['required','max:1024']
+       ];
+       return $rules;
     }
-    public function messages()
-    {
-        return [
-            'name.required' => 'name is required',
-            'description.required' => 'description is required',
-        ];
-    }
+
     protected function failedValidation(Validator $validator) 
     { 
         $data['errors'] = $validator->errors();
         throw new HttpResponseException($this->error($data));
     }
+  
 }

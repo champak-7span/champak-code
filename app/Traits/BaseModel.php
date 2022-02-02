@@ -7,10 +7,8 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 trait BaseModel
 {
-
     private function getQueryable()
     {
-        
         return $this->queryable;
     }
 
@@ -24,8 +22,8 @@ trait BaseModel
       
         foreach ($default as $field) {
             $fields[] = $field;
+        
         }
-     
 
         foreach ($_this->getFillable() as $field) {
             $fields[] = $field;
@@ -38,7 +36,6 @@ trait BaseModel
         $fields = $this->getQueryFields();
 
         $relationships  = $this->getRelationship();
-        
         
         foreach ($relationships as $relationshipName =>  $relationship) {
            
@@ -82,7 +79,6 @@ trait BaseModel
         if(isset($this->exactFilters)){
          
             foreach($this->exactFilters as $key=>$value){
-                //unset($filters[array_search($value, $filters)]);
                 array_push($filters,AllowedFilter::exact($value));
             }
         }

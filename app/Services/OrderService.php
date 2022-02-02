@@ -16,4 +16,10 @@ class OrderService
     {
        return $this->order->getQB()->get();
     }
+
+    public function store($inputs = null)
+    {
+        $order = $this->order->create($inputs);
+        // $orde->Categories()->sync([1, 3, 4]);
+    }
 }

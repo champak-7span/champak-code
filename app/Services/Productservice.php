@@ -24,7 +24,9 @@ class Productservice
         }
         public function collection($inputs = null)
         {
-           return $this->product->getQB()->get();
+           $products = $this->product->getQB();
+           return ($inputs['limit'] == -1 ? $products->get() : $products->paginate($inputs['limit']));
+
         }
 
         public function resource($id){
