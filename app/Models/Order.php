@@ -12,7 +12,7 @@ class Order extends Model
     use HasFactory,SoftDeletes,BaseModel;
 
     protected $fillable = [
-        'name', 'order_no','subtotal','total','user_id','createdby','updatedby','deletedby'
+        'name', 'order_no','subtotal','total','user_id','createdby','updatedby','deletedby','qty','address'
     ];
     public $queryable = [
         'id'
